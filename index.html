@@ -20,20 +20,29 @@
 
     <main>
         <section class= "container">
-            <div class="row">
-                <h2>
-                    <div>
+            <div class="search_wrapper">
+                <form class="form">
+                    <label for="search_box">Search for a City:</label>
+                    <input type="text" id="search_box" placeholder="Search">
+                    <button type="submit" id="search_btn" value="Search"></button>
+                </form>
+                <div class="divider"></div>
+                <div class="search_history"></div>
+            </div>
+            <div class="result_wrapper">
+                <div class="current_status">
+                  <h2 class="city_info">
+                     <div class="weather_icon">
                         <i></i>
-                    </div>
-                </h2>
-                <div>
-                    <p>Temp:</p>
-                    <p>Wind:</p>
-                    <p>Humidity:</p>
+                     </div>
+                    </h2>
+                    <p class="info temp">Temp:</p>
+                    <p class="info wind">Wind:</p>
+                    <p class="info humidity">Humidity:</p>
                 </div>
-                <div>
-                    <h3>5-Day Forecast</h3>
-                    <div>
+                <div class="future_forecast">
+                    <h3 class="title">5-Day Forecast</h3>
+                    <div class="forecast_wrapper">
 
 
 
