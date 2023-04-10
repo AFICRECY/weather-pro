@@ -1,3 +1,15 @@
+:root {
+    --text-primary: #5e5e5e;
+    --text-secondary: #595959;
+    --border-color: #c3c3c3;
+    --bg-primary-color: #26ccff;
+    --bg-secondary-color: #4dd8e4fa;
+    --border-radius-primary: 5px;
+    --border-radius-secondary: 5px;
+  }
+
+
+
 * {
     margin: 0;
     padding: 0;
@@ -27,7 +39,7 @@
 .header {
     padding: 10px 20px;
     background-color: var(--bg-primary-color);
-    color: white;
+    color: rgb(0, 0, 0);
     font-weight: 800;
     text-align: center;
   }
