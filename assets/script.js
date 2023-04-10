@@ -4,7 +4,7 @@ var tempInfo = document.querySelector(".temp");
 var humidyInfo = document.querySelector(".humidity");
 var cardWrapper = document.querySelector(".forecast_wrapper");
 var searchHistory = document.querySelector(".search_history");
-var buttonEL = document.querySelector("search _btn");
+var buttonEL = document.querySelector("#search_btn");
 var lat = "";
 var lon = "";
 // var city = "";
@@ -38,7 +38,7 @@ var FORECAST_API = "forecast";
           .then(data => {
             console.log(data);
             // Render the weather data to the UI
-            renderWeather(data);
+            fetchData(data);
           })
           .catch(error => {
             console.error("Error fetching weather data:", error);
@@ -47,6 +47,7 @@ var FORECAST_API = "forecast";
 
   
   function fetchData() {
+
 // 3. We need a function with a conditional statement (when the input section is filled out with a city name && the button is selected, then the 5 day forecast should be pulled from open weather, 
   }
 
@@ -83,7 +84,7 @@ var FORECAST_API = "forecast";
 
   weatherIcon.classList.add("weather_icon");
   icon.ariaHidden = true; 
-  
+
   cityInfo.textContent = `${name} (${currentDate})`;
   windInfo.textContent = `Wind : ${wind} MPH`;
   tempInfo.innerHTML = `Temp : ${temp}&#176;F`;
