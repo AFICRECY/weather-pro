@@ -16,10 +16,10 @@
 <body>
     <header>
         <h1 class="header">Weather Pro Dashboard</h1>
-      </header>
+    </header>
 
     <main>
-        <section class= "container">
+        <section class= "container flex flex_start">
             <div class="search_wrapper">
                 <form class="form">
                     <label for="search_box">Search for a City:</label>
@@ -27,11 +27,11 @@
                     <button type="submit" id="search_btn" value="Search"></button>
                 </form>
                 <div class="divider"></div>
-                <div class="search_history"></div>
+                <div class="search_history flex flex_col"></div>
             </div>
-            <div class="result_wrapper">
-                <div class="current_status">
-                  <h2 class="city_info">
+            <div class="result_wrapper flex flex_col flex_start">
+                <div class="current_status flex flex_col">
+                  <h2 class="city_info flex">
                      <div class="weather_icon">
                         <i></i>
                      </div>
@@ -40,9 +40,9 @@
                     <p class="info wind">Wind:</p>
                     <p class="info humidity">Humidity:</p>
                 </div>
-                <div class="future_forecast">
+                <div class="future_forecast flex flex_col">
                     <h3 class="title">5-Day Forecast</h3>
-                    <div class="forecast_wrapper">
+                    <div class="forecast_wrapper flex">
 
 
 
