@@ -24,79 +24,157 @@ var FORECAST_API = "forecast";
 
 // 3. We need a function with a conditional statement (when the input section is filled out with a city name && the button is selected, then the data should be fetched, 
 
-      buttonEL.addEventListener('click', function() {
-        var city = $("#search_box").val();
-        // Send a GET request to the OpenWeatherMap API using fetch
-        fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=945ee0c80eb9c6fb74ca9c1f8d075247`)
-          .then(city => {
-            if (type === city) {
-              fetchData();
-              searchHistoryStored();
-            }
-            return city.json();
-          })
-          .then(data => {
-            console.log(data);
-            // Render the weather data to the UI
-            fetchData(data);
-          })
-          .catch(error => {
-            console.error("Error fetching weather data:", error);
-          });
+
+buttonEL.addEventListener("click", function () {
+    var city = $("#search_box").val();
+    fetch(
+      `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=69b0df3ffea34ae495ba7d2b00430bcc&units=metric`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        renderWeather(data);
+        searchHistoryStored(city);
+      })
+      .catch((error) => {
+        console.error("Error fetching weather data:", error);
       });
-
+  });
   
-  function fetchData() {
-
-// 3. We need a function with a conditional statement (when the input section is filled out with a city name && the button is selected, then the 5 day forecast should be pulled from open weather, 
+  function renderWeather(data) {
+    var name = data.city.name;
+    var weather = data.list[0].weather;
+    var wind = data.list[0].wind.speed;
+    var temp = Math.round(((data.list[0].main.temp - 273.15) * 9) / 5 + 32);
+    var humidity = data.list[0].main.humidity;
+    var iconSrc = "https://openweathermap.org/img/wn/";
+    var icon = document.createElement("i");
+    var weatherIcon = document.createElement("div");
+    var currentDate = renderCurrentWeather();
+  
+    weatherIcon.classList.add("weather_icon");
+    icon.ariaHidden = true;
+  
+    cityInfo.textContent = `${name} (${currentDate})`;
+    windInfo.textContent = `Wind: ${wind} MPH`;
+    tempInfo.innerHTML = `Temp: ${temp}&#176;F`;
+    humidityInfo.textContent = `Humidity: ${humidity}%`;
+    icon.style.backgroundImage = `url(${iconSrc + weather[0].icon}@2x.png)`;
+  
+    weatherIcon.appendChild(icon);
+    cityInfo.appendChild(weatherIcon);
   }
-
-
-
-
-
-
-
-  // 4. We need a function with a conditional statement (when the new city has been looked up it is saved to the screen and displayed in the search history section as a column)
-
-  function searchHistoryStored (city) {
-    city.preventDefault()
-    // Get the div element to display the data
-    var searchHistory = document.getElementById("search_box");
   
-    // Check if the div already contains data
+  function renderCurrentWeather() {
+    var currentDate = new Date();
+    var day = currentDate.getDate();
+    var month = currentDate.getMonth() + 1;
+    var year = currentDate.getFullYear();
+  
+    return `${month}/${day}/${year}`;
+  }
+  
+  function searchHistoryStored(city) {
+    var newData = city;
+    var searchHistory = document.querySelector(".search_history");
+  
     if (searchHistory.innerHTML) {
-      // If the div already contains data, add the new data as a column
       searchHistory.innerHTML += `<div class="column">${newData}</div>`;
     } else {
-      // If the div is empty, add the new data as the first column
       searchHistory.innerHTML = `<div class="column">${newData}</div>`;
     }
   }
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//       buttonEL.addEventListener('click', function() {
+//         var city = $("#search_box").val();
+//         // Send a GET request to the OpenWeatherMap API using fetch
+//         fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=69b0df3ffea34ae495ba7d2b00430bcc`)
+//           .then(city => {
+//             if (type === city) {
+//               fetchData();
+//               searchHistoryStored();
+//             }
+//             return city.json();
+//           })
+//           .then(data => {
+//             console.log(data);
+//             // Render the weather data to the UI
+//             fetchData(data);
+//           })
+//           .catch(error => {
+//             console.error("Error fetching weather data:", error);
+//           });
+//       });
+
+  
+//   function fetchData() {
+
+// // 3. We need a function with a conditional statement (when the input section is filled out with a city name && the button is selected, then the 5 day forecast should be pulled from open weather, 
+//   }
+
+
+
+
+
+
+
+//   // 4. We need a function with a conditional statement (when the new city has been looked up it is saved to the screen and displayed in the search history section as a column)
+
+//   function searchHistoryStored (city) {
+//     city.preventDefault()
+//     // Get the div element to display the data
+//     var searchHistory = document.getElementById("search_box");
+  
+//     // Check if the div already contains data
+//     if (searchHistory.innerHTML) {
+//       // If the div already contains data, add the new data as a column
+//       searchHistory.innerHTML += `<div class="column">${newData}</div>`;
+//     } else {
+//       // If the div is empty, add the new data as the first column
+//       searchHistory.innerHTML = `<div class="column">${newData}</div>`;
+//     }
+//   }
+  
   
 
 
-  var weatherIcon = document.createElement("div");
-  var icon = document.createElement("i");
-  var iconCode = weather[0].icon;
-  var currentDate = renderCurrentWeather();
+//   var weatherIcon = document.createElement("div");
+//   var icon = document.createElement("i");
+//   var iconCode = weather[0].icon;
+//   var currentDate = renderCurrentWeather();
 
-  weatherIcon.classList.add("weather_icon");
-  icon.ariaHidden = true; 
+//   weatherIcon.classList.add("weather_icon");
+//   icon.ariaHidden = true; 
 
-  cityInfo.textContent = `${name} (${currentDate})`;
-  windInfo.textContent = `Wind : ${wind} MPH`;
-  tempInfo.innerHTML = `Temp : ${temp}&#176;F`;
-  humidyInfo.textContent = `Humidity : ${humidity}%`;
-  icon.style.backgroundImage = `url(${iconSrc + iconCode}@2x.png)`;
+//   cityInfo.textContent = `${name} (${currentDate})`;
+//   windInfo.textContent = `Wind : ${wind} MPH`;
+//   tempInfo.innerHTML = `Temp : ${temp}&#176;F`;
+//   humidyInfo.textContent = `Humidity : ${humidity}%`;
+//   icon.style.backgroundImage = `url(${iconSrc + iconCode}@2x.png)`;
 
-  weatherIcon.appendChild(icon);
-  cityInfo.appendChild(weatherIcon);
+//   weatherIcon.appendChild(icon);
+//   cityInfo.appendChild(weatherIcon);
 
-  function renderCurrentWeather () {
-// 5. We need a function with a conditional statement (when the input section is filled out with a city name && the button is selected, then the city name and current date, temp, wind, and humidity are pulled from open weather
-  }
+//   function renderCurrentWeather () {
+// // 5. We need a function with a conditional statement (when the input section is filled out with a city name && the button is selected, then the city name and current date, temp, wind, and humidity are pulled from open weather
+//   }
  
 
 
@@ -109,7 +187,7 @@ var FORECAST_API = "forecast";
 
 
 
-responseText.textContent = "Status Code :): " + response.status;
+// responseText.textContent = "Status Code :): " + response.status;
 
 
 // 3. We need a function with a conditional statement (when the input section is filled out with a city name && the button is selected, then the 5 day forecast should be pulled from open weather, 
