@@ -5,16 +5,74 @@ var humidyInfo = document.querySelector(".humidity");
 var cardWrapper = document.querySelector(".forecast_wrapper");
 var searchHistory = document.querySelector(".search_history");
 var buttonEL = document.querySelector("search _btn");
+var lat = "";
+var lon = "";
+var city = "";
+var WEATHER_API = "weather";
+var FORECAST_API = "forecast";
 
 
-buttonEL.addEventListener('click', function getApi(request){
-fetch('https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid=945ee0c80eb9c6fb74ca9c1f8d075247')
-    .then(response => response.json()) 
-    .then(data => console.log(data)) 
-    responseText.textContent = "Status Code :): " + response.status;
+
+// buttonEL.addEventListener('click', function getApi(request){
+// fetch('https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid=945ee0c80eb9c6fb74ca9c1f8d075247')
+//     .then(response => response.json()) 
+//     .then(data => console.log(data)) 
+    
  
-        }); 
-        
+//         }); 
+
+
+      buttonEL.addEventListener('click', function() {
+        // Send a GET request to the OpenWeatherMap API using fetch
+        fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=945ee0c80eb9c6fb74ca9c1f8d075247`)
+          .then(city => {
+            if (type === city) {
+              fetchData();
+              searchHistoryStored();
+            }
+            return city.json();
+          })
+          .then(data => {
+            console.log(data);
+            // Render the weather data to the UI
+            renderWeather(data);
+          })
+          .catch(error => {
+            console.error("Error fetching weather data:", error);
+          });
+      });
+
+  
+  function fetchData() {
+// 3. We need a function with a conditional statement (when the input section is filled out with a city name && the button is selected, then the 5 day forecast should be pulled from open weather, 
+  }
+
+  function searchHistoryStored () {
+// 4. We need a function with a conditional statement (when the new city has been looked up it is saved to the screen and displayed in the search history section as a column)
+
+  }
+  
+  function renderCurrentWeather () {
+// 5. We need a function with a conditional statement (when the input section is filled out with a city name && the button is selected, then the city name and current date, temp, wind, and humidity are pulled from open weather
+  }
+
+
+
+
+
+
+
+
+
+
+
+responseText.textContent = "Status Code :): " + response.status;
+
+// 3. We need a function with a conditional statement (when the input section is filled out with a city name && the button is selected, then the 5 day forecast should be pulled from open weather, 
+
+
+
+
 
 
 // Pseudo Code: 
