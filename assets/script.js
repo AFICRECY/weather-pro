@@ -59,6 +59,7 @@ var FORECAST_API = "forecast";
   // 4. We need a function with a conditional statement (when the new city has been looked up it is saved to the screen and displayed in the search history section as a column)
 
   function searchHistoryStored (city) {
+    city.preventDefault()
     // Get the div element to display the data
     var searchHistory = document.getElementById("search_box");
   
@@ -80,12 +81,17 @@ var FORECAST_API = "forecast";
   var iconCode = weather[0].icon;
   var currentDate = renderCurrentWeather();
 
-
+  weatherIcon.classList.add("weather_icon");
+  icon.ariaHidden = true; 
+  
   cityInfo.textContent = `${name} (${currentDate})`;
   windInfo.textContent = `Wind : ${wind} MPH`;
   tempInfo.innerHTML = `Temp : ${temp}&#176;F`;
   humidyInfo.textContent = `Humidity : ${humidity}%`;
   icon.style.backgroundImage = `url(${iconSrc + iconCode}@2x.png)`;
+
+  weatherIcon.appendChild(icon);
+  cityInfo.appendChild(weatherIcon);
 
   function renderCurrentWeather () {
 // 5. We need a function with a conditional statement (when the input section is filled out with a city name && the button is selected, then the city name and current date, temp, wind, and humidity are pulled from open weather
