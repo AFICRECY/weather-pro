@@ -30,10 +30,25 @@ async function fetchOneCallWeatherData(lat, lon){
         console.error("Error fetching weather data:", error);
       });
 }
-
+async function fetchForecast(lat, lon){
+  var data =await fetch(
+    `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      console.log('5 call data is', data);
+      
+      
+      // searchHistoryStored(city);
+    })
+    .catch((error) => {
+      console.error("Error fetching weather data:", error);
+    });
+}
  function renderWeather(data) {
   console.log(data)
     // var name = data.current.name;
+    var name="";
     var weather = data.current.weather[0].description;
     var wind = data.current.wind_speed;
     var temp = data.current.temp;
@@ -42,7 +57,7 @@ async function fetchOneCallWeatherData(lat, lon){
     var icon = document.createElement("i");
     var weatherIcon = document.createElement("div");
     var currentDate = renderCurrentWeather();
-  
+    
     weatherIcon.classList.add("weather_icon");
     icon.ariaHidden = true;
   
@@ -54,6 +69,8 @@ async function fetchOneCallWeatherData(lat, lon){
   
     weatherIcon.appendChild(icon);
     cityInfo.appendChild(weatherIcon);
+
+    
 }
   
 function renderCurrentWeather() {
@@ -97,6 +114,7 @@ searchBtn.addEventListener("click", function (event) {
         console.log(lat, lon);
         // now that we have our latitude and longitude, let's run our function and pass in values
         fetchOneCallWeatherData(lat, lon);
+        fetchForecast(lat,lon);
       })
       .catch((error) => {
         console.error("Error fetching lat and lon data:", error);
