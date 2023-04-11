@@ -4,44 +4,32 @@ var tempInfo = document.querySelector(".temp");
 var humidyInfo = document.querySelector(".humidity");
 var cardWrapper = document.querySelector(".forecast_wrapper");
 var searchHistory = document.querySelector(".search_history");
-var buttonEL = document.querySelector("#search_btn");
-var lat = "";
-var lon = "";
-// var city = "";
+var cityInput = document.querySelector("#city-input");
+var searchBtn = document.querySelector("#search_btn");
+console.log(searchBtn);
+
+var lat = null;
+var lon = null;
+var apiKey = "5313640f5787ea9e3c4cda59b1ef2c59";
 var WEATHER_API = "weather";
 var FORECAST_API = "forecast";
 
 
-
-// buttonEL.addEventListener('click', function getApi(request){
-// fetch('https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid=945ee0c80eb9c6fb74ca9c1f8d075247')
-//     .then(response => response.json()) 
-//     .then(data => console.log(data)) 
-    
- 
-//         });
-
-
-// 3. We need a function with a conditional statement (when the input section is filled out with a city name && the button is selected, then the data should be fetched, 
-
-
-buttonEL.addEventListener("click", function () {
-    var city = $("#search_box").val();
+function fetchOneCallWeatherData(lat, lon){
     fetch(
-      `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=69b0df3ffea34ae495ba7d2b00430bcc&units=metric`
+      `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=[minutely,alerts]&appid=${apiKey}&units=imperial`
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        renderWeather(data);
-        searchHistoryStored(city);
+        console.log('onecall data is', data);
+        // renderWeather(data);
+        // searchHistoryStored(city);
       })
       .catch((error) => {
         console.error("Error fetching weather data:", error);
       });
-  });
-  
-  function renderWeather(data) {
+}
+function renderWeather(data) {
     var name = data.city.name;
     var weather = data.list[0].weather;
     var wind = data.list[0].wind.speed;
@@ -63,119 +51,56 @@ buttonEL.addEventListener("click", function () {
   
     weatherIcon.appendChild(icon);
     cityInfo.appendChild(weatherIcon);
-  }
+}
   
-  function renderCurrentWeather() {
-    var currentDate = new Date();
-    var day = currentDate.getDate();
-    var month = currentDate.getMonth() + 1;
-    var year = currentDate.getFullYear();
+function renderCurrentWeather() {
+var currentDate = new Date();
+var day = currentDate.getDate();
+var month = currentDate.getMonth() + 1;
+var year = currentDate.getFullYear();
+return `${month}/${day}/${year}`;
+}
   
-    return `${month}/${day}/${year}`;
-  }
-  
-  function searchHistoryStored(city) {
+function searchHistoryStored(city) {
     var newData = city;
     var searchHistory = document.querySelector(".search_history");
-  
+
     if (searchHistory.innerHTML) {
-      searchHistory.innerHTML += `<div class="column">${newData}</div>`;
+        searchHistory.innerHTML += `<div class="column">${newData}</div>`;
     } else {
-      searchHistory.innerHTML = `<div class="column">${newData}</div>`;
+        searchHistory.innerHTML = `<div class="column">${newData}</div>`;
     }
-  }
-  
+}
 
+searchBtn.addEventListener("click", function (event) {
+    event.preventDefault();
+    console.log('button clicked');
+    var cityInputValue = cityInput.value;
+    console.log(cityInputValue);
 
+    if(cityInputValue == "") {
+        alert("Please enter a city to search");
+        return null;
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//       buttonEL.addEventListener('click', function() {
-//         var city = $("#search_box").val();
-//         // Send a GET request to the OpenWeatherMap API using fetch
-//         fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=69b0df3ffea34ae495ba7d2b00430bcc`)
-//           .then(city => {
-//             if (type === city) {
-//               fetchData();
-//               searchHistoryStored();
-//             }
-//             return city.json();
-//           })
-//           .then(data => {
-//             console.log(data);
-//             // Render the weather data to the UI
-//             fetchData(data);
-//           })
-//           .catch(error => {
-//             console.error("Error fetching weather data:", error);
-//           });
-//       });
+    fetch(
+        `http://api.openweathermap.org/geo/1.0/direct?q=${cityInputValue}&appid=${apiKey}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('data is', data);
+        lat = data[0]["lat"];
+        lon = data[0]["lon"];
+        console.log(lat, lon);
+        // now that we have our latitude and longitude, let's run our function and pass in values
+        fetchOneCallWeatherData(lat, lon);
+      })
+      .catch((error) => {
+        console.error("Error fetching lat and lon data:", error);
+      });
+  });
 
   
-//   function fetchData() {
-
-// // 3. We need a function with a conditional statement (when the input section is filled out with a city name && the button is selected, then the 5 day forecast should be pulled from open weather, 
-//   }
-
-
-
-
-
-
-
-//   // 4. We need a function with a conditional statement (when the new city has been looked up it is saved to the screen and displayed in the search history section as a column)
-
-//   function searchHistoryStored (city) {
-//     city.preventDefault()
-//     // Get the div element to display the data
-//     var searchHistory = document.getElementById("search_box");
-  
-//     // Check if the div already contains data
-//     if (searchHistory.innerHTML) {
-//       // If the div already contains data, add the new data as a column
-//       searchHistory.innerHTML += `<div class="column">${newData}</div>`;
-//     } else {
-//       // If the div is empty, add the new data as the first column
-//       searchHistory.innerHTML = `<div class="column">${newData}</div>`;
-//     }
-//   }
-  
-  
-
-
-//   var weatherIcon = document.createElement("div");
-//   var icon = document.createElement("i");
-//   var iconCode = weather[0].icon;
-//   var currentDate = renderCurrentWeather();
-
-//   weatherIcon.classList.add("weather_icon");
-//   icon.ariaHidden = true; 
-
-//   cityInfo.textContent = `${name} (${currentDate})`;
-//   windInfo.textContent = `Wind : ${wind} MPH`;
-//   tempInfo.innerHTML = `Temp : ${temp}&#176;F`;
-//   humidyInfo.textContent = `Humidity : ${humidity}%`;
-//   icon.style.backgroundImage = `url(${iconSrc + iconCode}@2x.png)`;
-
-//   weatherIcon.appendChild(icon);
-//   cityInfo.appendChild(weatherIcon);
-
-//   function renderCurrentWeather () {
-// // 5. We need a function with a conditional statement (when the input section is filled out with a city name && the button is selected, then the city name and current date, temp, wind, and humidity are pulled from open weather
-//   }
- 
 
 
 
@@ -187,10 +112,10 @@ buttonEL.addEventListener("click", function () {
 
 
 
-// responseText.textContent = "Status Code :): " + response.status;
 
 
-// 3. We need a function with a conditional statement (when the input section is filled out with a city name && the button is selected, then the 5 day forecast should be pulled from open weather, 
+
+
 
 
 

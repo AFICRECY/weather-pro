@@ -12,7 +12,6 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100&family=Libre+Baskerville&family=Space+Mono&display=swap"
         rel="stylesheet">
-    <script src="./assets/script.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.js"
         integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
     <title>Weather Pro</title>
@@ -22,15 +21,13 @@
     <header>
         <h1 class="header">Weather Pro Dashboard</h1>
     </header>
-
     <main>
         <section class="container flex flex_start">
             <div class="search_wrapper">
                 <form class="form">
                     <label for="search_box">Search for a City:</label>
-                    <input type="text" id="search_box" placeholder="Search">
-                    <input class="d-flex justify-content-center flex-column align-items-center" type="submit"
-                        id="search_btn" value="Search">
+                    <input type="text" id="city-input" placeholder="Search">
+                    <button id="search_btn">Search Now</button>
                 </form>
                 <div class="divider"></div>
                 <div class="search_history flex flex_col"></div>
@@ -57,8 +54,9 @@
                 </div>
             </div>
         </section>
-    </main>
 
+    </main>
+    <script src="./assets/script.js"></script>
 </body>
 
 </html>
