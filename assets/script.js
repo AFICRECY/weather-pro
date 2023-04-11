@@ -73,7 +73,6 @@ function renderWeather(data) {
 
 function renderForecast(data) {
   var city=data.city.name
-  // it will work now save and run ok
   var lat = data.city.coord.lat;
   var lon = data.city.coord.lon;
   let { list } = data;
