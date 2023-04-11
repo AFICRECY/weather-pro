@@ -1,4 +1,68 @@
 # weather-pro
+
+## Technology Used:
+| Technology Used         | Resource URL           |
+| ------------- |:-------------:|
+| HTML    | [https://developer.mozilla.org/en-US/docs/Web/HTML](https://developer.mozilla.org/en-US/docs/Web/HTML) |
+| CSS     | [https://developer.mozilla.org/en-US/docs/Web/CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)      |
+| Git | [https://git-scm.com/](https://git-scm.com/)     |
+| JavaScript  | [https://getbootstrap.com/docs/5.3/getting-started/introduction/](https://developer.mozilla.org/en-US/docs/Web/JavaScript)      |
+| Jquery UI  | [https://jqueryui.com/](https://jqueryui.com/)      |
+| OpenWeather Server Side API | [https://openweathermap.org/api/one-call-3](https://openweathermap.org/api/one-call-3)      |
+
+
+
+## Description:
+
+[Visit Deployed Site]:
+
+Having access to an accessible weather application is extremely useful for any individual who want to plan their day or week according to a 5 day weather forecast. This web application does exactly that! With this dynamic web application I’ve brought together HTML, CSS, JavaScript, Jquery, OpenWeather’s API weather data to help enhance the user experience when looking up a city and the corresponding weekly weather conditions. With Weather Pro, a user can enter a city name into the search input and the daily weather (Temp, Wind, and Humidity) as well as a 5 day weather forecast for that respective city are displayed in an appealing display. 
+A main advantage of this weather application is its usage of a weather API which provides high quality, reliable, and up to date weather data. 
+
+
+
+
+## Table of Contents:
+* Installation (HTML, CSS, JavaScript, Jquery, getElementById, Event Listeners, and Objects, Server Side API’s )
+* Usage
+* Credits
+* License
+
+
+### Installation:
+
+To install this project, a knowledge of HTML, CSS, JavaScript, Web API’s, and Server Side API,  were required. Methods used ranged from functions, document window methods, querySelector, getElementById, Event Listeners, Local Storage, Variables, If/Else Statements, and the OpenWeather.com weather API link and key. The web application is intended for the user to be able to input any city and get current and updated weather forecasts as well as store their previous searches in a designated area underneath the search section. 
+
+
+
+### Usage:
+
+Weekly weather displays are important to protecting life, property, and daily planning. Forecasts are pulled from OpenWeather’s API database and provide fast and numerical predictions.  When a user enters a city name, they are able to get the current day as well as a 5 day weather forecast. 
+
+Weather predictions based on temperature and precipitation are important to agriculture, family and event planning as well as outdoor and indoor businesses. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # 06 Server-Side APIs: Weather Dashboard
 
 ## Your Task

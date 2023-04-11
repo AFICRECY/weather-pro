@@ -29,6 +29,7 @@ function fetchOneCallWeatherData(lat, lon){
         console.error("Error fetching weather data:", error);
       });
 }
+
 function renderWeather(data) {
     var name = data.city.name;
     var weather = data.list[0].weather;
