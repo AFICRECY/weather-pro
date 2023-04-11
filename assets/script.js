@@ -233,11 +233,6 @@ searchBtn.addEventListener("click", function (event) {
 
 
 
-
-
-
-
-
 // Pseudo Code: 
 // 1. set up the html and the associated classes to mirror the wireframe. 
 //         a. Will need section for the search input element as well as a button for sumbit. 
