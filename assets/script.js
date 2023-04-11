@@ -1,7 +1,7 @@
 var cityInfo = document.querySelector(".city_info");
 var windInfo = document.querySelector(".wind");
 var tempInfo = document.querySelector(".temp");
-var humidyInfo = document.querySelector(".humidity");
+var humidityInfo = document.querySelector(".humidity");
 var cardWrapper = document.querySelector(".forecast_wrapper");
 var searchHistory = document.querySelector(".search_history");
 var cityInput = document.querySelector("#city-input");
@@ -14,15 +14,16 @@ var apiKey = "5313640f5787ea9e3c4cda59b1ef2c59";
 var WEATHER_API = "weather";
 var FORECAST_API = "forecast";
 
-
-function fetchOneCallWeatherData(lat, lon){
-    fetch(
+// the async is used to wait until the data is pulled to call the function renderWeather
+async function fetchOneCallWeatherData(lat, lon){
+    var data =await fetch(
       `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=[minutely,alerts]&appid=${apiKey}&units=imperial`
     )
       .then((response) => response.json())
       .then((data) => {
         console.log('onecall data is', data);
-        // renderWeather(data);
+        renderWeather(data);
+        
         // searchHistoryStored(city);
       })
       .catch((error) => {
@@ -30,12 +31,13 @@ function fetchOneCallWeatherData(lat, lon){
       });
 }
 
-function renderWeather(data) {
-    var name = data.city.name;
-    var weather = data.list[0].weather;
-    var wind = data.list[0].wind.speed;
-    var temp = Math.round(((data.list[0].main.temp - 273.15) * 9) / 5 + 32);
-    var humidity = data.list[0].main.humidity;
+ function renderWeather(data) {
+  console.log(data)
+    // var name = data.current.name;
+    var weather = data.current.weather[0].description;
+    var wind = data.current.wind_speed;
+    var temp = data.current.temp;
+    var humidity = data.current.humidity;
     var iconSrc = "https://openweathermap.org/img/wn/";
     var icon = document.createElement("i");
     var weatherIcon = document.createElement("div");
@@ -47,7 +49,7 @@ function renderWeather(data) {
     cityInfo.textContent = `${name} (${currentDate})`;
     windInfo.textContent = `Wind: ${wind} MPH`;
     tempInfo.innerHTML = `Temp: ${temp}&#176;F`;
-    humidityInfo.textContent = `Humidity: ${humidity}%`;
+    humidityInfo.textContent = `Humidity: (${humidity})`;
     icon.style.backgroundImage = `url(${iconSrc + weather[0].icon}@2x.png)`;
   
     weatherIcon.appendChild(icon);
