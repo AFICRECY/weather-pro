@@ -202,7 +202,7 @@ searchBtn.addEventListener("click", function (event) {
   }
 
   fetch(
-    `http://api.openweathermap.org/geo/1.0/direct?q=${cityInputValue}&appid=${apiKey}`
+    `https://api.openweathermap.org/geo/1.0/direct?q=${cityInputValue}&appid=${apiKey}`
   )
     .then((response) => response.json())
     .then((data) => {
@@ -215,7 +215,7 @@ searchBtn.addEventListener("click", function (event) {
       fetchForecast(lat, lon);
     })
     .catch((error) => {
-      console.error("Error fetching lat and lon data:", error);
+      // console.error("Error fetching lat and lon data:", error);
     });
 });
 
